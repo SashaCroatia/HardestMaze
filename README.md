@@ -17,9 +17,9 @@ This file will contain the code for performing comparisons between your selected
 - **Recommended Feature:** Include a setting to run a subset of comparisons for testing purposes.  
 
 ### 3. `demo.py`  
-This file will provide a brief demonstration of your project.  
+This file will provide a brief demonstration of your project.
 
-#### Requirements:
+#### Submission Requirements:
 - **Progress Report:** Demonstrate *random agents* attempting to solve each problem.  
 - **Final Report:** Demonstrate *each algorithm* attempting to solve each problem.  
 
