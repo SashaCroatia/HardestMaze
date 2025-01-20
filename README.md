@@ -55,7 +55,7 @@ git clone <your_repo>
 Test your repository/evironment:  
 - Open Terminal (or Anaconda prompt in Windows)- 
 - `conda activate evalenv`
--  Open project directory
+-  Open project directory (`cd yourdirectory` in Windows)
 - `python demo.py`
   
 ### Step 2: Code Your Project
