@@ -1,6 +1,6 @@
 ## Project Template: AI Algorithm Comparison
 
-This repository serves as the template for your course project. Below is a guide to the structure of the project and the purpose of each file. As you progress, you should add details about your specific project (e.g., "This file contains the implementations of the X, Y, and Z algorithms"). 
+This repository serves as the template for your course project. Below is a guide to the structure of the project and the purpose of each file. As you progress, you should add details about your specific project (e.g., "This file contains the implementations of the X, Y, and Z algorithms..."). 
 
 ---
 
@@ -13,18 +13,18 @@ This file will contain the implementations of the AI algorithms/agents used in y
 
 ### 2. `comparisons.py`  
 This file will contain the code for performing comparisons between your selected algorithms.  
-- The file should be designed to perform **all comparisons** when executed.  
-- **Optional Feature:** Include a setting to run a subset of comparisons for testing purposes.  
+- The file should be able to perform **all comparisons** described in your report when executed.  
+- **Recommended Feature:** Include a setting to run a subset of comparisons for testing purposes.  
 
 ### 3. `demo.py`  
 This file will provide a brief demonstration of your project.  
 
 #### Requirements:
-- **Progress Report:** Demonstrate *selected agents* attempting to solve each problem.  
+- **Progress Report:** Demonstrate *random agents* attempting to solve each problem.  
 - **Final Report:** Demonstrate *each algorithm* attempting to solve each problem.  
 
 #### Guidelines for Demonstrations:
-Keep the demonstrations concise but meaningful to highlight key behaviors.
+Keep the demonstrations concise but meaningful to highlight key behaviors. Some agent types (e.g., random agents) may struggle or fail to solve a problem. Some problems may take a long time to complete (e.g., a full game of chess). In such cases, you should cut off the demonstration after a representative sample of the agent's behavior and problem mechanics has be shown. 
 
 ### 4. `problems.py`  
 This file will contain the implementation of the problems you are solving with your AI algorithms.  
@@ -42,8 +42,8 @@ git clone <your_repo>
 ```
 
 ### Step 2: Code Your Project
-- Implement your algorithms in [`algorithms.py`](./algorithms.py).
 - Define your problems in [`problems.py`](./problems.py).
+- Implement your algorithms in [`algorithms.py`](./algorithms.py).
 - Write the comparison logic in [`comparisons.py`](./comparisons.py).
 - Create the demonstrations in [`demo.py`](./demo.py).
 
