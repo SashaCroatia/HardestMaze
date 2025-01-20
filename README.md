@@ -1,6 +1,6 @@
 ## Project Template: AI Algorithm Comparison
 
-This repository serves as the template for your course project. Below is a guide to the structure of the project and the purpose of each file. (Replace the details with your project details)
+This repository serves as the template for your course project. Below is a guide to the structure of the project and the purpose of each file. As you progress, you should add details about your specific project (e.g., "This file contains the implementations of the X, Y, and Z algorithms"). 
 
 ---
 
