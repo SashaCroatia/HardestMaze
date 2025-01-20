@@ -35,12 +35,29 @@ This file will contain the implementation of the problems you are solving with y
 
 ## Instructions for Students
 
+### Step 0: Prepare Python Evironment
+These instructions will setup the evaluation environment we will use to evaluate your project. Use this environment (without addition or modification) to make sure your code will run the same on our machines.
+- Download and install [Anaconda](https://www.anaconda.com/download)
+- Open Terminal (or Anaconda prompt in Windows)- 
+- `conda create --name evalenv python=3.9`- 
+- `conda activate evalenv`
+- `pip install --upgrade pip`
+- `pip install numpy`
+- `pip install scipy`
+- `pip install opencv-python`
+- `pip install -U matplotlib`
+
 ### Step 1: Clone the Repository
 Clone this repository to your local machine:  
 ```
 git clone <your_repo>
 ```
-
+Test your repository/evironment:  
+- Open Terminal (or Anaconda prompt in Windows)- 
+- `conda activate evalenv`
+-  Open project directory
+- `python demo.py`
+  
 ### Step 2: Code Your Project
 - Define your problems in [`problems.py`](./problems.py).
 - Implement your algorithms in [`algorithms.py`](./algorithms.py).
@@ -50,7 +67,6 @@ git clone <your_repo>
 For detailed instructions, refer to the [Project Instructions](./project_instructions.md).
 
 ### Step 3: Commit Regularly
-- Ensure at least 10 commits are made before the progress report submission deadline.
+- Ensure at least 10 commits are made BEFORE the progress report submission deadline.
+- Ensure at least 10 commits are made AFTER the progress report submission deadline.
 - Make detailed commit messages describing what was added or changed.
-
-(Add details about the code and repository)
