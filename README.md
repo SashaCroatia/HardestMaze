@@ -42,10 +42,9 @@ These instructions will setup the evaluation environment we will use to evaluate
 - `conda create --name evalenv python=3.9`- 
 - `conda activate evalenv`
 - `pip install --upgrade pip`
-- `pip install numpy`
-- `pip install scipy`
-- `pip install opencv-python`
-- `pip install -U matplotlib`
+- `pip install -r requirements.txt`
+
+`Note:` You’re welcome to include any additional libraries you’ve installed in this file to facilitate reproducibility.
 
 ### Step 1: Clone the Repository
 Clone this repository to your local machine:  
@@ -63,6 +62,7 @@ Test your repository/evironment:
 - Implement your algorithms in [`algorithms.py`](./algorithms.py).
 - Write the comparison logic in [`comparisons.py`](./comparisons.py).
 - Create the demonstrations in [`demo.py`](./demo.py).
+- Installed Dependencies or Libraries in [`requirements.txt`](./requirements.txt)
 
 For detailed instructions, refer to the [Project Instructions](./project_instructions.md).
 
