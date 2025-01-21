@@ -45,8 +45,6 @@ These instructions will setup the evaluation environment we will use to evaluate
 - Open project directory (`cd <your_directory>` in Windows)
 - `pip install -r requirements.txt`
 
-`Note:` Feel free to add any other approved libraries you’ve installed to the `requirements.txt` file. This helps ensure that anyone working on or reviewing the project can easily recreate the same environment, promoting reproducibility.
-
 ### Step 1: Clone the Repository
 Clone this repository to your local machine:  
 ```
