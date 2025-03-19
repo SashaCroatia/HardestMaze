@@ -1,7 +1,7 @@
 '''
 This file will contain your the code for your problems. 
 '''
-
+import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 
@@ -110,3 +110,30 @@ class TicTacToe:
                
       cv2.imshow('TicTacToe',screen)
       cv2.waitKey(ms)
+
+class Maze:
+   def __init__(self, width, height, path):
+      #Ensure width and height are odd:
+      if width % 2 == 0:
+         width += 1
+      if height % 2 == 0:
+         height += 1
+
+      self.width = width
+      self.height = height
+      self.path = path
+
+   def gen_maze(self):
+      #Build grid
+      maze = np.ones((self.height, self.width), dtype=float) #1 = white = unvisited cell
+
+      for i in range(self.height): #rows
+         for j in range(self.width): #cols
+            if i%2 == 1 or j%2 == 1: #if odd row or column
+               maze[i,j] = 0 #wall
+
+      #Display maze
+      cv2.namedWindow('Maze', cv2.WINDOW_NORMAL)
+      cv2.imshow('Maze', maze)
+      cv2.waitKey(0)
+      cv2.destroyAllWindows()
