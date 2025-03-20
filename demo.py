@@ -17,5 +17,5 @@ algorithm and one player uses another. If your problem is snake, you might show 
 # demoGame = prb.Game(prb.TicTacToe(),alg.RandomAgent(),alg.RandomAgent())
 # demoGame.playGame()
 
-Maze = prb.Maze(11,11,1)
+Maze = prb.Maze(15,15)
 Maze.gen_maze()
