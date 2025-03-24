@@ -13,7 +13,7 @@ algorithm and one player uses another. If your problem is snake, you might show 
 (whichever comes first).
 '''
 #Define dimensions of maze
-Maze = prb.Maze(25,25)
+Maze = prb.Maze(15,15)
 
 #Generate maze
 maze = Maze.gen_maze()

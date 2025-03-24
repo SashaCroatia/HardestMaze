@@ -8,8 +8,16 @@ import algorithms as alg
 
 class Maze:
    def __init__(self, height, width):
+      if height < 1:
+         raise ValueError("height can't be less than 1")
+      if width < 2:
+         raise ValueError("width can't be less than 2")
+      
       self.height = 2*height+1
       self.width = 2*width+1
+      
+      self.start = (0,1)
+      self.goal = (self.height-1, self.width-2)
 
    def gen_maze(self):
       #Setup for randomized depth-first search (recursive backtracking)
@@ -119,56 +127,46 @@ class Maze:
       return maze
    
 
-   def display(self, maze):
-      #Initialization
-      #maze = self.gen_maze()
-      start = (0,1)
-      goal = (self.height-1, self.height-2)
-
+   def display(self, maze, ms=1000):
       #Prepare display
       maze_display = np.stack([maze * 255] * 3, axis=-1).astype(np.uint8)
       cv2.namedWindow('Puzzle', cv2.WINDOW_NORMAL) #https://www.geeksforgeeks.org/python-opencv-namedwindow-function/
       cv2.resizeWindow('Puzzle', self.width*10, self.height*10) #https://www.geeksforgeeks.org/python-opencv-resizewindow-function/
 
       #Show start node
-      maze_display[start] = [0, 0, 255] #red
+      maze_display[self.start] = [0, 0, 255] #red
 
       #Show goal node
-      maze_display[goal] = [0, 0, 255] #red
+      maze_display[self.goal] = [0, 0, 255] #red
 
       #Display
       cv2.imshow('Puzzle', maze_display)
-      cv2.waitKey(1000)
+      cv2.waitKey(ms)
    
 
    def solve_maze(self, maze, method = 'dfs', display = False):
-      #Initialization
-      #maze = self.gen_maze()
-      start = (0,1)
-      goal = (self.height-1, self.height-2)
-
       #Display animation??
       if display == True:
          #Prepare display
          maze_display = np.stack([maze * 255] * 3, axis=-1).astype(np.uint8)
-         cv2.namedWindow('Maze', cv2.WINDOW_NORMAL) #https://www.geeksforgeeks.org/python-opencv-namedwindow-function/
-         cv2.resizeWindow('Maze', self.width*10, self.height*10) #https://www.geeksforgeeks.org/python-opencv-resizewindow-function/
+         cv2.namedWindow('Maze', cv2.WINDOW_NORMAL)
+         cv2.resizeWindow('Maze', self.width*10, self.height*10)
 
          #Show start node
-         maze_display[start] = [0, 0, 255] #red
+         maze_display[self.start] = [0, 0, 255] #red
 
          #Show goal node
-         maze_display[goal] = [0, 0, 255] #red
+         maze_display[self.goal] = [0, 0, 255] #red
 
          #Display
          cv2.imshow('Maze', maze_display)
-         cv2.waitKey(1000)
+         cv2.waitKey(500)
       else:
          maze_display = None
 
       #Solving method:
       if method == 'dfs':
-         dfs = alg.dfs(start, goal, maze, display, maze_display)
+         dfs = alg.dfs(self.start, self.goal, maze, display, maze_display)
          data = dfs.data()
       
       return data
