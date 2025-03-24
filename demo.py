@@ -20,4 +20,4 @@ maze = Maze.gen_maze()
 Maze.display(maze)
 
 #Solve that maze
-Maze.solve_maze(maze, 'dfs', True)
+print(Maze.solve_maze(maze, 'dfs', True))

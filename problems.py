@@ -168,7 +168,8 @@ class Maze:
 
       #Solving method:
       if method == 'dfs':
-         data = alg.dfs(start, goal, maze, display, maze_display)
+         dfs = alg.dfs(start, goal, maze, display, maze_display)
+         data = dfs.data()
       
       return data
 
