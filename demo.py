@@ -1,5 +1,4 @@
 import problems as prb
-import algorithms as alg
 
 '''
 This file will contain the code needed to run a demonstration of your project. 
@@ -13,9 +12,12 @@ meaningful behavior. If your problem is chess playing, for example, you might sh
 algorithm and one player uses another. If your problem is snake, you might show game long enough for the player to eat two apples or die
 (whichever comes first).
 '''
+#Define dimensions of maze
+Maze = prb.Maze(25,25)
 
-# demoGame = prb.Game(prb.TicTacToe(),alg.RandomAgent(),alg.RandomAgent())
-# demoGame.playGame()
+#Generate maze
+maze = Maze.gen_maze()
+Maze.display(maze)
 
-Maze = prb.Maze(15,15)
-Maze.gen_maze()
+#Solve that maze
+Maze.solve_maze(maze, 'dfs', True)
