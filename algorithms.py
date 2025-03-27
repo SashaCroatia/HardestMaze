@@ -12,6 +12,9 @@ class dfs:
     path_len = 0 #length of path
 
     while True:
+      if len(frontier) == 0:
+        #print("Error: no solution found")
+        break
       current = frontier.pop() #choose shallowest node in frontier
       explored.add(current) #add unique node to explored
 

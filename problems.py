@@ -19,11 +19,16 @@ class Maze:
       self.start = (0,1)
       self.goal = (self.height-1, self.width-2)
 
+
    def gen_maze(self):
+      '''
+      Generates a complete, solvable, no-loop maze via the recursive backtracking algorithm.
+
+      Inspiration for possible_moves and backtrack functions (modified to meet my project specifications):
+      https://learn.64bitdragon.com/articles/computer-science/procedural-generation/maze-generation-with-the-recursive-backtracking-algorithm 
+      '''
       #Setup for randomized depth-first search (recursive backtracking)
-      #--------------------
-      #Inspiration for these functions (modified to meet my project specifications):
-      #https://learn.64bitdragon.com/articles/computer-science/procedural-generation/maze-generation-with-the-recursive-backtracking-algorithm      
+      #--------------------     
       def possible_moves(visited, cell):
          moves = []
          for direction in ['north', 'south', 'east', 'west']:
@@ -127,6 +132,47 @@ class Maze:
       return maze
    
 
+   def gen_maze2(self, p=0.5):
+      '''
+      Generates a maze by randomly inserting paths (white spaces) in place of a wall.
+      Initially, since each white space (cell) is in a grid it's surronded by 4 walls.
+      Now we randomly remove a wall for each cell in the grid.
+      Beacuse it's random this maze may not be solveable, so we test its solvability using
+      a complete search algorithm like A-star or breadth first search and recreate the maze if it fails
+      to find a path.
+      '''   
+      #Generate Maze!
+      #------------------
+      path_length = 0
+      while path_length == 0:
+         #Maze structure
+         maze = np.zeros((self.height, self.width),bool)
+
+         #Entry and exit points
+         maze[0, 1] = True #entry
+         maze[self.height-1, self.width - 2] = True #exit
+         for i in range(self.height):
+            for j in range(self.width):
+               if (0 < i < self.height - 1 and 0 < j < self.width - 1):
+                  current_cell = (i,j) #start at entry
+                  #Create grid of white square cells (contained by 4 black walls)
+                  if i%2 == 1 and j%2 == 1:
+                     maze[current_cell] = True
+
+                  #Randomly remove a wall for each white cell
+                  current_cell = (i,j) #start at entry
+                  remove = np.random.binomial(1, p, 1)
+                  if (i%2 == 1 or j%2 == 1) and remove == 1:
+                     maze[current_cell] = True
+
+         #Verify that maze is solvable
+         dfs = alg.dfs(self.start, self.goal, maze, False, None)
+         data = dfs.data()
+         path_length = data[0]
+
+      return maze
+   
+
    def display(self, maze, ms=1000):
       #Prepare display
       maze_display = np.stack([maze * 255] * 3, axis=-1).astype(np.uint8)
@@ -170,5 +216,3 @@ class Maze:
          data = dfs.data()
       
       return data
-
-            
