@@ -85,7 +85,7 @@ class Maze:
       #Display animation?
       if display == True:
          #Prepare display
-         name = 'Maze '+ method
+         name = method
          maze_display = np.stack([maze * 255] * 3, axis=-1).astype(np.uint8)
          cv2.namedWindow(name, cv2.WINDOW_NORMAL)
          cv2.resizeWindow(name, self.width*10, self.height*10)

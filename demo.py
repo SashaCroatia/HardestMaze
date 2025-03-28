@@ -13,14 +13,14 @@ algorithm and one player uses another. If your problem is snake, you might show 
 import problems as prb
 
 #Define dimensions of empty grid
-Maze = prb.Maze(9,9)
+Maze = prb.Maze(16,16)
 
 #Generate maze
-prob = 0.5 #probability of generating neighboring wall in grid-cell
+prob = 0.51 #probability of generating neighboring wall in grid-cell
 maze = Maze.gen_maze(prob)
 Maze.display(maze)
 
 #Solve that maze with depth-first search and breadth-first search
-print("DFS, (path len, num nodes explored) = ", Maze.solve_maze(maze, 'dfs', True, 1))
-print("BFS, (path len, num nodes explored) = ", Maze.solve_maze(maze, 'bfs', True, 0))
+print("BFS, (path len, num nodes explored) = ", Maze.solve_maze(maze, 'bfs', True, 1)) # WARNING:This is slow! Make sure prob not too high
+print("DFS, (path len, num nodes explored) = ", Maze.solve_maze(maze, 'dfs', True, 0))
 
