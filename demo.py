@@ -1,5 +1,5 @@
 import problems as prb
-
+import algorithms as alg
 '''
 This file will contain the code needed to run a demonstration of your project. 
 
@@ -16,8 +16,8 @@ algorithm and one player uses another. If your problem is snake, you might show 
 Maze = prb.Maze(14,14)
 
 #Generate maze
-maze = Maze.gen_maze2(0.5)
+maze = Maze.gen_maze(0.5)
 Maze.display(maze)
 
 #Solve that maze
-print(Maze.solve_maze(maze, 'dfs', True))
+print(Maze.solve_maze(maze, 'bfs', True))
