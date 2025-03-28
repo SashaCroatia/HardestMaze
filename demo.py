@@ -1,4 +1,3 @@
-import problems as prb
 '''
 This file will contain the code needed to run a demonstration of your project. 
 
@@ -11,14 +10,17 @@ meaningful behavior. If your problem is chess playing, for example, you might sh
 algorithm and one player uses another. If your problem is snake, you might show game long enough for the player to eat two apples or die
 (whichever comes first).
 '''
+import problems as prb
+
 #Define dimensions of maze
 Maze = prb.Maze(14,14)
 
 #Generate maze
-maze = Maze.gen_maze(0.5)
+prob = 0.45 #probability of generating neighboring wall in grid-cell
+maze = Maze.gen_maze(prob)
 Maze.display(maze)
 
 #Solve that maze with depth-first search and breadth-first search
-print(Maze.solve_maze(maze, 'dfs', True))
-print(Maze.solve_maze(maze, 'dfs', True))
+print("DFS, (path len, num nodes explored) = ", Maze.solve_maze(maze, 'dfs', True, 1))
+print("BFS, (path len, num nodes explored) = ", Maze.solve_maze(maze, 'bfs', True, 0))
 

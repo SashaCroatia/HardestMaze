@@ -7,7 +7,7 @@ class dfs:
   '''
   Implements depth-first search
   '''
-  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None):
+  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None, wait = 0):
     #Initials
     frontier = [start] #LIFO stack with start as the only element
     explored = set() #empty set of nodes visited
@@ -60,7 +60,7 @@ class dfs:
     
     if display == True:
       cv2.imshow(name, maze_display)
-      cv2.waitKey(0)
+      cv2.waitKey(wait)
 
     #return
     self.path_len = path_len
@@ -74,7 +74,7 @@ class bfs:
   '''
   Implements breadth-first search
   '''
-  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None):
+  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None, wait = 0):
     #Initials
     frontier = [start] #FIFO queue with start as the only element
     explored = set() #empty set of nodes visited
@@ -127,7 +127,7 @@ class bfs:
     
     if display == True:
       cv2.imshow(name, maze_display)
-      cv2.waitKey(0)
+      cv2.waitKey(wait)
 
     #return
     self.path_len = path_len

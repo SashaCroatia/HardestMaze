@@ -53,8 +53,8 @@ class Maze:
                      maze[current_cell] = True
 
          #Verify that maze is solvable
-         dfs = alg.dfs(self.start, self.goal, maze, False, None)
-         data = dfs.data()
+         bfs = alg.bfs(self.start, self.goal, maze)
+         data = bfs.data()
          path_length = data[0]
 
       return maze
@@ -77,7 +77,7 @@ class Maze:
       cv2.waitKey(ms)
    
 
-   def solve_maze(self, maze, method = 'dfs', display = False):
+   def solve_maze(self, maze, method = 'dfs', display = False, wait = 0):
       #Display animation?
       if display == True:
          #Prepare display
@@ -96,16 +96,16 @@ class Maze:
          cv2.imshow(name, maze_display)
          cv2.waitKey(500)
       else:
-         name = None
          maze_display = None
+         name = None
 
       #Solving method:
       if method == 'dfs':
-         dfs = alg.dfs(self.start, self.goal, maze, display, maze_display, name)
+         dfs = alg.dfs(self.start, self.goal, maze, display, maze_display, name, wait)
          data = dfs.data()
 
       if method == 'bfs':
-         bfs = alg.bfs(self.start, self.goal, maze, display, maze_display, name)
+         bfs = alg.bfs(self.start, self.goal, maze, display, maze_display, name, wait)
          data = bfs.data()
       
       return data
