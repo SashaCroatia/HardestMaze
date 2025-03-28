@@ -81,9 +81,10 @@ class Maze:
       #Display animation?
       if display == True:
          #Prepare display
+         name = 'Maze '+ method
          maze_display = np.stack([maze * 255] * 3, axis=-1).astype(np.uint8)
-         cv2.namedWindow('Maze', cv2.WINDOW_NORMAL)
-         cv2.resizeWindow('Maze', self.width*10, self.height*10)
+         cv2.namedWindow(name, cv2.WINDOW_NORMAL)
+         cv2.resizeWindow(name, self.width*10, self.height*10)
 
          #Show start node
          maze_display[self.start] = [0, 0, 255] #red
@@ -92,18 +93,19 @@ class Maze:
          maze_display[self.goal] = [0, 0, 255] #red
 
          #Display
-         cv2.imshow('Maze', maze_display)
+         cv2.imshow(name, maze_display)
          cv2.waitKey(500)
       else:
+         name = None
          maze_display = None
 
       #Solving method:
       if method == 'dfs':
-         dfs = alg.dfs(self.start, self.goal, maze, display, maze_display)
+         dfs = alg.dfs(self.start, self.goal, maze, display, maze_display, name)
          data = dfs.data()
 
       if method == 'bfs':
-         bfs = alg.bfs(self.start, self.goal, maze, display, maze_display)
+         bfs = alg.bfs(self.start, self.goal, maze, display, maze_display, name)
          data = bfs.data()
       
       return data

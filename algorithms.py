@@ -7,7 +7,7 @@ class dfs:
   '''
   Implements depth-first search
   '''
-  def __init__(self, start, goal, maze, display = False, maze_display = None):
+  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None):
     #Initials
     frontier = [start] #LIFO stack with start as the only element
     explored = set() #empty set of nodes visited
@@ -24,8 +24,7 @@ class dfs:
       if display == True:
         # Mark current cell as grey (path trace)
         maze_display[current] = [210, 210, 210]
-        cv2.imshow('Maze', maze_display)
-        cv2.waitKey(1)
+        cv2.imshow(name, maze_display)
 
       #If goal state found, describe solution
       if current == goal:
@@ -37,7 +36,7 @@ class dfs:
             if display == True:
               # Backtrack the path in red
               maze_display[current] = [0, 0, 255]
-              cv2.imshow('Maze', maze_display)
+              cv2.imshow(name, maze_display)
         break
 
       #Search for next legal move
@@ -60,7 +59,7 @@ class dfs:
           path[neighbor] = current
     
     if display == True:
-      cv2.imshow('Maze - DFS', maze_display)
+      cv2.imshow(name, maze_display)
       cv2.waitKey(0)
 
     #return
@@ -75,7 +74,7 @@ class bfs:
   '''
   Implements breadth-first search
   '''
-  def __init__(self, start, goal, maze, display = False, maze_display = None):
+  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None):
     #Initials
     frontier = [start] #FIFO queue with start as the only element
     explored = set() #empty set of nodes visited
@@ -92,7 +91,7 @@ class bfs:
       if display == True:
         # Mark current cell as grey (path trace)
         maze_display[current] = [210, 210, 210]
-        cv2.imshow('Maze', maze_display)
+        cv2.imshow(name, maze_display)
 
       #If goal state found, describe solution
       if current == goal:
@@ -104,7 +103,7 @@ class bfs:
             if display == True:
               # Backtrack the path in red
               maze_display[current] = [0, 0, 255]
-              cv2.imshow('Maze', maze_display)
+              cv2.imshow(name, maze_display)
         break
 
       #Search for next legal move
@@ -127,7 +126,7 @@ class bfs:
           path[neighbor] = current
     
     if display == True:
-      cv2.imshow('Maze - BFS', maze_display)
+      cv2.imshow(name, maze_display)
       cv2.waitKey(0)
 
     #return

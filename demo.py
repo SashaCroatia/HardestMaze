@@ -18,5 +18,7 @@ Maze = prb.Maze(14,14)
 maze = Maze.gen_maze(0.5)
 Maze.display(maze)
 
-#Solve that maze
-print(Maze.solve_maze(maze, 'bfs', True))
+#Solve that maze with depth-first search and breadth-first search
+print(Maze.solve_maze(maze, 'dfs', True))
+print(Maze.solve_maze(maze, 'dfs', True))
+
