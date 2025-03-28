@@ -27,6 +27,9 @@ class Maze:
       Beacuse it's random this maze may not be solveable, so we test its solvability using
       a complete search algorithm like A-star or breadth first search and recreate the maze if it fails
       to find a path.
+
+      - p (float): probability of removing wall for each white cell in grid
+      - grid(bool): True = whether this is grid-like maze. False = randomly remove walls from anywhere
       '''   
       #Generate Maze!
       #------------------
@@ -65,6 +68,11 @@ class Maze:
    
 
    def display(self, maze, ms=1000):
+      '''
+      Displays the generated maze.
+      - maze (np 2D array): this is the generated maze
+      - ms (int): how long to display in cv2
+      '''
       #Prepare display
       maze_display = np.stack([maze * 255] * 3, axis=-1).astype(np.uint8)
       cv2.namedWindow('Puzzle', cv2.WINDOW_NORMAL) #https://www.geeksforgeeks.org/python-opencv-namedwindow-function/
@@ -82,6 +90,13 @@ class Maze:
    
 
    def solve_maze(self, maze, method = 'dfs', display = False, wait = 0):
+      '''
+      Solves the maze via specified search method.
+      - maze (np 2D array): this is the generated maze
+      - method (string): method of search. Options = 'dfs', 'bfs'
+      - display (bool): True = display the solved maze. False = Don't.
+      - wait (int): how long to display solved maze in in cv2 (only if display == True)
+      '''
       #Display animation?
       if display == True:
          #Prepare display
