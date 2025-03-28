@@ -60,7 +60,7 @@ class dfs:
           path[neighbor] = current
     
     if display == True:
-      cv2.imshow('Maze', maze_display)
+      cv2.imshow('Maze - DFS', maze_display)
       cv2.waitKey(0)
 
     #return
@@ -93,7 +93,6 @@ class bfs:
         # Mark current cell as grey (path trace)
         maze_display[current] = [210, 210, 210]
         cv2.imshow('Maze', maze_display)
-        cv2.waitKey(1)
 
       #If goal state found, describe solution
       if current == goal:
@@ -128,7 +127,7 @@ class bfs:
           path[neighbor] = current
     
     if display == True:
-      cv2.imshow('Maze', maze_display)
+      cv2.imshow('Maze - BFS', maze_display)
       cv2.waitKey(0)
 
     #return
