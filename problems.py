@@ -19,7 +19,7 @@ class Maze:
       self.goal = (self.height-1, self.width-2)
    
 
-   def gen_maze(self, p=0.5):
+   def gen_maze(self, p=0.5, grid = True):
       '''
       Generates a maze by randomly inserting paths (white spaces) in place of a wall.
       Initially, since each white space (cell) is in a grid it's surronded by 4 walls.
@@ -49,12 +49,16 @@ class Maze:
                   #Randomly remove a wall for each white cell
                   current_cell = (i,j) #start at entry
                   remove = np.random.binomial(1, p, 1)
-                  if (i%2 == 1 or j%2 == 1) and remove == 1:
-                     maze[current_cell] = True
+                  if grid == True:
+                     if (i%2 == 1 or j%2 == 1) and remove == 1:
+                        maze[current_cell] = True
+                  else:
+                     if remove == 1:
+                        maze[current_cell] = True
 
-         #Verify that maze is solvable
-         bfs = alg.bfs(self.start, self.goal, maze)
-         data = bfs.data()
+         #Verify that maze is solvable via dfs (fastest)
+         dfs = alg.dfs(self.start, self.goal, maze)
+         data = dfs.data()
          path_length = data[0]
 
       return maze

@@ -12,11 +12,11 @@ algorithm and one player uses another. If your problem is snake, you might show 
 '''
 import problems as prb
 
-#Define dimensions of maze
-Maze = prb.Maze(14,14)
+#Define dimensions of empty grid
+Maze = prb.Maze(9,9)
 
 #Generate maze
-prob = 0.45 #probability of generating neighboring wall in grid-cell
+prob = 0.5 #probability of generating neighboring wall in grid-cell
 maze = Maze.gen_maze(prob)
 Maze.display(maze)
 
