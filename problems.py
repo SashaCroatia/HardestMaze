@@ -19,7 +19,7 @@ class Maze:
       self.goal = (self.height-1, self.width-2)
    
 
-   def gen_maze(self, p=0.5, grid = True):
+   def gen_maze(self, p = 0.5, method = 'dfs'):
       '''
       Generates a maze by randomly inserting paths (white spaces) in place of a wall.
       Initially, since each white space (cell) is in a grid it's surronded by 4 walls.
@@ -33,14 +33,14 @@ class Maze:
       '''   
       #Generate Maze!
       #------------------
+      #Maze structure
+      maze = np.zeros((self.height, self.width),bool)
+      #Entry and exit points
+      maze[0, 1] = True #entry
+      maze[self.height-1, self.width - 2] = True #exit
+
       path_length = 0
       while path_length == 0:
-         #Maze structure
-         maze = np.zeros((self.height, self.width),bool)
-
-         #Entry and exit points
-         maze[0, 1] = True #entry
-         maze[self.height-1, self.width - 2] = True #exit
          for i in range(self.height):
             for j in range(self.width):
                if (0 < i < self.height - 1 and 0 < j < self.width - 1):
@@ -52,20 +52,66 @@ class Maze:
                   #Randomly remove a wall for each white cell
                   current_cell = (i,j) #start at entry
                   remove = np.random.binomial(1, p, 1)
-                  if grid == True:
-                     if (i%2 == 1 or j%2 == 1) and remove == 1:
-                        maze[current_cell] = True
-                  else:
+                  if (i%2 == 1 or j%2 == 1):
                      if remove == 1:
-                        maze[current_cell] = True
+                        maze[current_cell] = True #Make path
+                     else: ##remove == 0:
+                        maze[current_cell] = False #Make wall
 
          #Verify that maze is solvable via dfs (fastest)
-         dfs = alg.dfs(self.start, self.goal, maze)
-         data = dfs.data()
+         if method == 'dfs':
+            dfs = alg.dfs(self.start, self.goal, maze)
+            data = dfs.data()
          path_length = data[0]
 
       return maze
    
+
+   def gen_maze_adversarial_path(self, p = 0.5, method = 'dfs', max_iter = 1000):
+      '''
+      Same as gen_maze, except the aim is to create a maze that maximizes the length of the 
+      path from the start node to the goal node.
+      '''
+      #Generate Maze!
+      #------------------
+      #Maze structure
+      hardest_maze = self.gen_maze(1) #initial, solvable maze
+
+      #Intiate params for adversial path search
+      path_length = 0
+      max_length = 0 #longest path
+
+      iter = 0 #iterations
+      while path_length <= max_length and iter < max_iter:
+         maze = hardest_maze.copy()
+         for i in range(self.height):
+            for j in range(self.width):
+               if (0 < i < self.height - 1 and 0 < j < self.width - 1):
+                  #Randomly pick 1 or 0. 1 = Create wall. 0 = nothing.
+                  current_cell = (i,j) #start at entry
+                  remove = np.random.binomial(1, p, 1)
+                  if (i%2 == 1 or j%2 == 1) and remove == 1: 
+                     maze[current_cell] = False #Wall
+
+         #Verify that maze is solvable and find path_length
+         if method == 'dfs':
+            dfs = alg.dfs(self.start, self.goal, maze)
+            data = dfs.data()
+         if method == 'bfs':
+            bfs = alg.bfs(self.start, self.goal, maze)
+            data = bfs.data()
+         path_length = data[0]
+
+         #Record hardest maze found
+         if max_length < path_length:
+            max_length = path_length
+            print(max_length)
+            hardest_maze = maze.copy()
+         
+         iter += 1
+
+      return hardest_maze
+
 
    def display(self, maze, ms=1000):
       '''
