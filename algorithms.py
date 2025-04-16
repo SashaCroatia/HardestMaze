@@ -135,3 +135,73 @@ class bfs:
 
   def data(self):
     return (self.path_len, self.exp_len)
+  
+
+class ucs:
+  '''
+  Implements uniform cost search
+  '''
+  def __init__(self, start, goal, maze, display = False, maze_display = None, name = None, wait = 0):
+    #Initials
+    frontier = [(0, start)] #priority queue including cost
+    total_cost = {start: 0} #like explored set, but each explored node has a cost attached
+    path = {} #empty dictionary
+    path_len = 0 #length of path
+
+    while True:
+      if len(frontier) == 0:
+        #print("Error: no solution found")
+        break
+      frontier.sort(key=lambda x: x[0], reverse=True) #sort frontier in descending order (lowest cost last) 
+      current_cost, current = frontier.pop() #choose shallowest node in frontier
+
+      if display == True:
+        # Mark current cell as grey (path trace)
+        maze_display[current] = [210, 210, 210]
+        cv2.imshow(name, maze_display)
+
+      #If goal state found, describe solution
+      if current == goal:
+        if display == True:
+          maze_display[current] = [0, 0, 255]
+        while current != start:
+            current = path[current]
+            path_len += 1
+            if display == True:
+              # Backtrack the path in red
+              maze_display[current] = [0, 0, 255]
+              cv2.imshow(name, maze_display)
+        break
+
+      #Search for next legal move
+      for direction in ['north', 'south', 'east', 'west']:
+        neighbor = current
+
+        #Find neighboring cells
+        if direction == 'north':
+          neighbor = current[0], current[1]+1
+        elif direction == 'south':
+          neighbor = current[0], current[1]-1
+        elif direction == 'east':
+          neighbor = current[0]+1, current[1]
+        else:
+          neighbor = current[0]-1, current[1]
+
+        new_cost = current_cost + 1 #all costs from current are equal
+
+        #Verify neighbor is in white path and not in total_cost dictionary of path:cost
+        if maze[neighbor] == True and neighbor not in total_cost:
+          total_cost[neighbor] = new_cost
+          frontier.append((new_cost, neighbor))
+          path[neighbor] = current
+    
+    if display == True:
+      cv2.imshow(name, maze_display)
+      cv2.waitKey(wait)
+
+    #return
+    self.path_len = path_len
+    self.exp_len = len(total_cost)
+
+  def data(self):
+    return (self.path_len, self.exp_len)

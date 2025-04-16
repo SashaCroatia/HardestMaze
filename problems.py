@@ -76,7 +76,7 @@ class Maze:
 
       iter = 0 #iterations
       print("Init maze")
-      while iter < max_iter1:
+      while path_length == 0 or iter < max_iter1:
          #Maze structure
          original_maze = self.gen_maze(p1) #initial, solvable maze
          maze = original_maze.copy()
@@ -85,9 +85,14 @@ class Maze:
          if method == 'dfs':
             dfs = alg.dfs(self.start, self.goal, maze)
             data = dfs.data()
-         if method == 'bfs':
+         elif method == 'bfs':
             bfs = alg.bfs(self.start, self.goal, maze)
             data = bfs.data()
+         elif method == 'ucs':
+            ucs = alg.ucs(self.start, self.goal, maze)
+            data = ucs.data()
+         else:
+            pass
          path_length = data[0]
 
          #Record hardest maze found
@@ -118,9 +123,14 @@ class Maze:
          if method == 'dfs':
             dfs = alg.dfs(self.start, self.goal, maze)
             data = dfs.data()
-         if method == 'bfs':
+         elif method == 'bfs':
             bfs = alg.bfs(self.start, self.goal, maze)
             data = bfs.data()
+         elif method == 'ucs':
+            ucs = alg.ucs(self.start, self.goal, maze)
+            data = ucs.data()
+         else:
+            pass
          path_length = data[0]
 
          #Record hardest maze found
@@ -193,5 +203,9 @@ class Maze:
       if method == 'bfs':
          bfs = alg.bfs(self.start, self.goal, maze, display, maze_display, name, wait)
          data = bfs.data()
+
+      if method == 'ucs':
+         ucs = alg.ucs(self.start, self.goal, maze, display, maze_display, name, wait)
+         data = ucs.data()
       
       return data
