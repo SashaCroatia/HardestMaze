@@ -19,7 +19,7 @@ class Maze:
       self.goal = (self.height-1, self.width-2)
    
 
-   def gen_maze(self, p = 0.5, method = 'dfs'):
+   def gen_maze(self, p = 0.5):
       '''
       Generates a maze by randomly inserting paths (white spaces) in place of a wall.
       Initially, since each white space (cell) is in a grid it's surronded by 4 walls.
@@ -55,9 +55,8 @@ class Maze:
                      maze[current_cell] = True
 
          #Verify that maze is solvable via dfs (fastest)
-         if method == 'dfs':
-            dfs = alg.dfs(self.start, self.goal, maze)
-            data = dfs.data()
+         astar = alg.astar(self.start, self.goal, maze)
+         data = astar.data()
          path_length = data[0]
 
       return maze
@@ -91,6 +90,12 @@ class Maze:
          elif method == 'ucs':
             ucs = alg.ucs(self.start, self.goal, maze)
             data = ucs.data()
+         elif method == 'greedy':
+            greedy = alg.greedy(self.start, self.goal, maze)
+            data = greedy.data()
+         elif method == 'astar':
+            astar = alg.astar(self.start, self.goal, maze)
+            data = astar.data()
          else:
             pass
          path_length = data[0]
@@ -116,6 +121,8 @@ class Maze:
                   if (0 < i < self.height - 1 and 0 < j < self.width - 1): #center
                      if wall == 1: 
                         maze[current_cell] = False #Wall
+                     if wall == 0:
+                        maze[current_cell] = True #Path
                   else:
                      pass
                
@@ -129,6 +136,12 @@ class Maze:
          elif method == 'ucs':
             ucs = alg.ucs(self.start, self.goal, maze)
             data = ucs.data()
+         elif method == 'greedy':
+            greedy = alg.greedy(self.start, self.goal, maze)
+            data = greedy.data()
+         elif method == 'astar':
+            astar = alg.astar(self.start, self.goal, maze)
+            data = astar.data()
          else:
             pass
          path_length = data[0]
@@ -137,6 +150,7 @@ class Maze:
          if max_length < path_length:
             max_length = path_length
             print(max_length)
+            p2 += 0.02
             hardest_maze = maze.copy()
          
          iter += 1
