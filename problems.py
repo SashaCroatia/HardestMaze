@@ -207,5 +207,13 @@ class Maze:
       if method == 'ucs':
          ucs = alg.ucs(self.start, self.goal, maze, display, maze_display, name, wait)
          data = ucs.data()
+
+      if method == 'greedy':
+         greedy = alg.greedy(self.start, self.goal, maze, display, maze_display, name, wait)
+         data = greedy.data()
+
+      if method == 'astar':
+         astar = alg.astar(self.start, self.goal, maze, display, maze_display, name, wait)
+         data = astar.data()
       
       return data
