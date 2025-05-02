@@ -13,14 +13,12 @@ algorithm and one player uses another. If your problem is snake, you might show 
 import problems as prb
 
 #Define dimensions of empty grid
-Maze = prb.Maze(20,20)
+Maze = prb.Maze(15,15)
 
 #Generate maze
-p1 = 1 #probability of removing neighboring wall in maze gen
-p2 = 0.008 #probability of adding/removing neighboring wall; modifies maze created above
-maze = Maze.gen_maze_adversarial_path2(p1, p2, 'greedy', 10, 150)
-#maze = Maze.gen_maze(1, False)
-#Maze.display(maze, 0)
+maze = Maze.gen_maze_adversarial_path2(None, 1, 0.2, 'astar', True, 200, 100)
+# maze = Maze.gen_maze(0.6)
+# Maze.display(maze, 0)
 
 #Solve that maze
 print("path len, num nodes explored = ", Maze.solve_maze(maze, 'astar', True, 0))

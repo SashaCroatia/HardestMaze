@@ -30,6 +30,7 @@ class Maze:
 
       - p (float): probability of removing wall for each white cell in grid
       - grid(bool): True = whether this is grid-like maze. False = randomly remove walls from anywhere
+      - solvable (bool): can this maze be solved. True = Yes. False = No.
       '''   
       #Generate Maze!
       #------------------
@@ -65,11 +66,14 @@ class Maze:
       return maze
    
 
-   def gen_maze_adversarial_path(self, p1 = 0.8, p2 = 0.1, method = 'dfs', max_iter1 = 100, max_iter2 = 1000):
+   def gen_maze_adversarial_path(self, p1 = 0.8, p2 = 0.1, method = 'astar', max_iter1 = 100, max_iter2 = 1000):
       '''
       Same as gen_maze, except the aim is to create a maze that maximizes the length of the 
       path from the start node to the goal node.
       This version uses hill-climb.
+
+      - p1: probability of removing neighboring wall in maze gen
+      - p2: probability of adding/removing neighboring wall; modifies maze created above
       '''
       #Generate Maze!
       #------------------
@@ -129,11 +133,14 @@ class Maze:
       return hardest_maze
    
 
-   def gen_maze_adversarial_path2(self, p1 = 0.8, p2 = 0.1, method = 'dfs', max_iter = 20, max_gen = 10):
+   def gen_maze_adversarial_path2(self, prev_maze, p1 = 0.8, p2 = 0.1, method = 'astar', reset = False, max_iter = 20, max_gen = 10):
       '''
       Same as gen_maze, except the aim is to create a maze that maximizes the length of the 
       path from the start node to the goal node.
       This version uses evolution.
+
+      - p1: probability of removing neighboring wall in maze gen
+      - p2: probability of adding/removing neighboring wall; modifies maze created above
       '''
       #Generate Maze!
       #------------------
@@ -141,10 +148,12 @@ class Maze:
       path_length = 0
       max_length = 0 #longest path
 
-      print("Initial maze")
       while path_length == 0:
          #Maze structure
-         original_maze = self.gen_maze(p1) #initial, solvable maze
+         if prev_maze is not None:
+            original_maze = prev_maze
+         else:
+            original_maze = self.gen_maze(p1) #initial, solvable maze
          maze = original_maze.copy()
          
          #Verify that maze is solvable and find path_length
@@ -158,8 +167,10 @@ class Maze:
       start_maze = self.gen_maze(1)
       
       print("Mod maze")
-      print("Path: Gen: Iter:")
+      print("Path: Gen: Iter: p2:")
       gen = 0
+      a = self.height - 5
+      b = self.width - 5
       while gen < max_gen: #Number of generations
          iter = 0
          initial_maze = hardest_maze.copy()
@@ -168,7 +179,7 @@ class Maze:
             maze = initial_maze.copy()
             for i in range(self.height):
                for j in range(self.width):
-                  if (0 < i < self.height - 1 and 0 < j < self.width - 1) and (i%2 == 0 or j%2 == 0) and start_maze[i,j] != False:
+                  if (0 < i < self.height - a and 0 < j < self.width - b) and (i%2 == 0 or j%2 == 0) and start_maze[i,j] != False:
                      #Randomly pick 1 or 0. 1 = Create wall. 0 = nothing.
                      current_cell = (i,j) #start at entry
                      wall = np.random.binomial(1, p2, 1)
@@ -182,16 +193,33 @@ class Maze:
                            maze[current_cell] = True #Remove Wall
 
                         #Record hardest maze found
-                        if max_length <= path_length:
+                        if max_length <= path_length and reset == False:
                            max_length = path_length
                            hardest_maze = maze.copy()
-                           if gen > (max_gen-4) and p2 < 0.99:
-                              p2 += 0.0001
+                        if max_length < path_length and reset == True:
+                           max_length = path_length
+                           hardest_maze = maze.copy()
             self.solve_maze(maze, method = method, display = True, wait = 1)
-            print(max_length, gen, iter, end='\r')
+            print(max_length, gen, iter, p2, end='\r')
 
             iter += 1
+
          gen += 1
+         if self.height - a == self.height//3:
+            p2 = 0.17
+         elif self.height - a == self.height//2:
+            p2 = 0.15
+         else:
+            pass
+         
+         if 2 < a:
+            a = a - 1
+         else:
+            a = 1
+         if 2 < b:
+            b = b - 1
+         else:
+            b = 1
       print("\n")
 
       return hardest_maze
