@@ -35,6 +35,7 @@ class Maze:
       #Generate Maze!
       #------------------
       path_length = 0
+      np.random.seed(10)
       while path_length == 0:
          #Maze structure
          maze = np.zeros((self.height, self.width),bool)
@@ -169,57 +170,44 @@ class Maze:
       print("Mod maze")
       print("Path: Gen: Iter: p2:")
       gen = 0
-      a = self.height - 5
-      b = self.width - 5
+      np.random.seed(2)
       while gen < max_gen: #Number of generations
          iter = 0
          initial_maze = hardest_maze.copy()
          while iter < max_iter: #Number of iterations in this generation
-            path_length = 0
             maze = initial_maze.copy()
             for i in range(self.height):
                for j in range(self.width):
-                  if (0 < i < self.height - a and 0 < j < self.width - b) and (i%2 == 0 or j%2 == 0) and start_maze[i,j] != False:
+                  if (0 < i < self.height - 1 and 0 < j < self.width - 1) and (i%2 == 0 or j%2 == 0) and start_maze[i,j] != False:
                      #Randomly pick 1 or 0. 1 = Create wall. 0 = nothing.
                      current_cell = (i,j) #start at entry
                      wall = np.random.binomial(1, p2, 1)
                      if wall == 1: 
                         maze[current_cell] = False #Add Wall
-                        
+
                         #Verify that maze is solvable and find path_length
                         data = self.solve_maze(maze, method = method)
                         path_length = data[0]
                         if path_length == 0:
                            maze[current_cell] = True #Remove Wall
 
-                        #Record hardest maze found
-                        if max_length <= path_length and reset == False:
-                           max_length = path_length
-                           hardest_maze = maze.copy()
-                        if max_length < path_length and reset == True:
-                           max_length = path_length
-                           hardest_maze = maze.copy()
+                     #Record hardest maze found
+                     if (max_length <= path_length) and reset == False:
+                        max_length = path_length
+                        hardest_maze = maze.copy()
+                     else:
+                        pass
+                     if (max_length < path_length) and reset == True:
+                        max_length = path_length
+                        hardest_maze = maze.copy()
+                     else:
+                        pass
+            
             self.solve_maze(maze, method = method, display = True, wait = 1)
             print(max_length, gen, iter, p2, end='\r')
 
             iter += 1
-
          gen += 1
-         if self.height - a == self.height//3:
-            p2 = 0.17
-         elif self.height - a == self.height//2:
-            p2 = 0.15
-         else:
-            pass
-         
-         if 2 < a:
-            a = a - 1
-         else:
-            a = 1
-         if 2 < b:
-            b = b - 1
-         else:
-            b = 1
       print("\n")
 
       return hardest_maze

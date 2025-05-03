@@ -16,8 +16,9 @@ import problems as prb
 Maze = prb.Maze(15,15)
 
 #Generate maze
-maze = Maze.gen_maze_adversarial_path2(None, 1, 0.2, 'astar', True, 200, 100)
-# maze = Maze.gen_maze(0.6)
+maze = Maze.gen_maze_adversarial_path2(None, 0.86, 0.1, 'astar', True, 100, 3)
+maze = Maze.gen_maze_adversarial_path2(maze, 1, 0.05, 'astar', True, 100, 20)
+# maze = Maze.gen_maze(0.86)
 # Maze.display(maze, 0)
 
 #Solve that maze
