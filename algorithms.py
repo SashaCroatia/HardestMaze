@@ -13,6 +13,7 @@ class dfs:
     explored = set() #empty set of nodes visited
     path = {} #empty dictionary
     path_len = 0 #length of path
+    dead_ends = 0 #deadends
 
     while True:
       if len(frontier) == 0:
@@ -40,6 +41,7 @@ class dfs:
         break
 
       #Search for next legal move
+      valid_neighbors = 0
       for direction in ['north', 'south', 'east', 'west']:
         neighbor = current
 
@@ -57,6 +59,11 @@ class dfs:
         if maze[neighbor] == True and neighbor not in explored:
           frontier.append(neighbor)
           path[neighbor] = current
+          valid_neighbors += 1
+
+      #If no valid neighbors found, it's a deadend
+      if valid_neighbors == 0:
+        dead_ends += 1
     
     if display == True:
       cv2.imshow(name, maze_display)
@@ -65,9 +72,10 @@ class dfs:
     #return
     self.path_len = path_len
     self.exp_len = len(explored)
+    self.dead_ends = dead_ends
 
   def data(self):
-    return (self.path_len, self.exp_len)
+    return (self.path_len, self.exp_len, self.dead_ends)
 
 
 class bfs:
@@ -80,6 +88,7 @@ class bfs:
     explored = set() #empty set of nodes visited
     path = {} #empty dictionary
     path_len = 0 #length of path
+    dead_ends = 0 #deadends
 
     while True:
       if len(frontier) == 0:
@@ -107,6 +116,7 @@ class bfs:
         break
 
       #Search for next legal move
+      valid_neighbors = 0
       for direction in ['north', 'south', 'east', 'west']:
         neighbor = current
 
@@ -124,6 +134,11 @@ class bfs:
         if maze[neighbor] == True and neighbor not in explored:
           frontier.append(neighbor)
           path[neighbor] = current
+          valid_neighbors += 1
+
+      #If no valid neighbors found, it's a deadend
+      if valid_neighbors == 0:
+        dead_ends += 1
     
     if display == True:
       cv2.imshow(name, maze_display)
@@ -132,9 +147,10 @@ class bfs:
     #return
     self.path_len = path_len
     self.exp_len = len(explored)
+    self.dead_ends = dead_ends
 
   def data(self):
-    return (self.path_len, self.exp_len)
+    return (self.path_len, self.exp_len, self.dead_ends)
   
 
 class ucs:
@@ -147,6 +163,7 @@ class ucs:
     node_cost = {start: 0} #like explored set, but each explored node has a cost attached.
     path = {} #empty dictionary
     path_len = 0 #length of path
+    dead_ends = 0 #deadends
 
     while True:
       if len(frontier) == 0:
@@ -174,6 +191,7 @@ class ucs:
         break
 
       #Search for next legal move
+      valid_neighbors = 0
       for direction in ['north', 'south', 'east', 'west']:
         neighbor = current
 
@@ -194,6 +212,11 @@ class ucs:
           node_cost[neighbor] = new_current_cost #attach cost to this neighboring node
           frontier.append((new_current_cost, neighbor))
           path[neighbor] = current
+          valid_neighbors += 1
+
+      #If no valid neighbors found, it's a deadend
+      if valid_neighbors == 0:
+        dead_ends += 1
     
     if display == True:
       cv2.imshow(name, maze_display)
@@ -202,9 +225,10 @@ class ucs:
     #return
     self.path_len = path_len
     self.exp_len = len(node_cost)
+    self.dead_ends = dead_ends
 
   def data(self):
-    return (self.path_len, self.exp_len)
+    return (self.path_len, self.exp_len, self.dead_ends)
   
 
 class greedy:
@@ -218,6 +242,7 @@ class greedy:
     node_cost = {start: dist(start)} #like explored set, but each explored node has a cost attached.
     path = {} #empty dictionary
     path_len = 0 #length of path
+    dead_ends = 0 #deadends
 
     while True:
       if len(frontier) == 0:
@@ -245,6 +270,7 @@ class greedy:
         break
 
       #Search for next legal move
+      valid_neighbors = 0
       for direction in ['north', 'south', 'east', 'west']:
         neighbor = current
 
@@ -265,6 +291,11 @@ class greedy:
           node_cost[neighbor] = new_cost #attach cost to this neighboring node
           frontier.append((new_cost, neighbor))
           path[neighbor] = current
+          valid_neighbors += 1
+
+      #If no valid neighbors found, it's a deadend
+      if valid_neighbors == 0:
+        dead_ends += 1
     
     if display == True:
       cv2.imshow(name, maze_display)
@@ -273,9 +304,10 @@ class greedy:
     #return
     self.path_len = path_len
     self.exp_len = len(node_cost)
+    self.dead_ends = dead_ends
 
   def data(self):
-    return (self.path_len, self.exp_len)
+    return (self.path_len, self.exp_len, self.dead_ends)
   
 
 class astar:
@@ -291,6 +323,7 @@ class astar:
     node_cost = {start: start_total_cost} #like explored set, but each explored node has a cost attached.
     path = {} #empty dictionary
     path_len = 0 #length of path
+    dead_ends = 0 #deadends
 
     while True:
       if len(frontier) == 0:
@@ -318,6 +351,7 @@ class astar:
         break
 
       #Search for next legal move
+      valid_neighbors = 0
       for direction in ['north', 'south', 'east', 'west']:
         neighbor = current
 
@@ -339,6 +373,11 @@ class astar:
           node_cost[neighbor] = new_total_cost #attach cost to this neighboring node
           frontier.append((new_total_cost, new_current_cost, neighbor))
           path[neighbor] = current
+          valid_neighbors += 1
+
+      #If no valid neighbors found, it's a deadend
+      if valid_neighbors == 0:
+        dead_ends += 1
     
     if display == True:
       cv2.imshow(name, maze_display)
@@ -347,6 +386,7 @@ class astar:
     #return
     self.path_len = path_len
     self.exp_len = len(node_cost)
+    self.dead_ends = dead_ends
 
   def data(self):
-    return (self.path_len, self.exp_len)
+    return (self.path_len, self.exp_len, self.dead_ends)

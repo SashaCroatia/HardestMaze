@@ -13,13 +13,34 @@ algorithm and one player uses another. If your problem is snake, you might show 
 import problems as prb
 
 #Define dimensions of empty grid
-Maze = prb.Maze(10,10)
+Maze = prb.Maze(11,11)
+
+#Define Method and metric
+method = 'astar'
+metric = 'nodepath'
+if metric == 'path':
+    p1 = 0.86
+    p2 = 0.1
+    max_iter = 200
+elif metric == 'nodepath':
+    p1 = 1
+    p2 = 0.05
+    max_iter = 400
+elif metric == 'deadend':
+    p1 = 0.92
+    p2 = 0.05
+    max_iter = 200
+else:
+    #metric == 'node'
+    p1 = 1
+    p2 = 0.05
+    max_iter = 200
 
 #Generate starting maze
-maze = Maze.gen_maze_adversarial_path2(None, 0.86, 0.1, 'astar', True, 200, 2, False)
+maze = Maze.gen_maze_adversarial(None, metric, p1, p2, method, True, max_iter, 2, False)
 
 #Modify that maze
-maze = Maze.gen_maze_adversarial_path2(maze, 1, 0.05, 'astar', True, 200, 30)
+maze = Maze.gen_maze_adversarial(maze, metric, 1, 0.05, method, True, max_iter, 5, False) #30
 
 #Solve that maze
-print("path len, num nodes explored = ", Maze.solve_maze(maze, 'astar', True, 0))
+print("path len, nodes explored, dead ends = ", Maze.solve_maze(maze, method, True, 0))

@@ -135,23 +135,32 @@ class Maze:
       return hardest_maze
    
 
-   def gen_maze_adversarial_path2(self, prev_maze, p1 = 0.8, p2 = 0.1, method = 'astar', reset = False, max_iter = 20, max_gen = 10, path_display = True, maze_display = True):
+   def gen_maze_adversarial(self, prev_maze, metric = 'path', p1 = 0.8, p2 = 0.1, method = 'astar', reset = False, max_iter = 20, max_gen = 10, path_display = True, maze_display = True):
       '''
       Same as gen_maze, except the aim is to create a maze that maximizes the length of the 
       path from the start node to the goal node.
       This version uses evolution.
 
+      - metric: by what metric is the maze adverserial. Takes: 'path' = length of solution, 'node' = nodes explored, 'nodepath' = path*node, 'deadend' = number of deadends
       - p1: probability of removing neighboring wall in maze gen
       - p2: probability of adding/removing neighboring wall; modifies maze created above
+      - method: search algorithm used to solve maze during creation. Takes: 'dfs' = depth-first search, 'bfs' = breadth-first search, 'ucs' = uniform cost search, 
+      'greedy' = greedy search, 'astar' = astar search.
+      - reset: for the next generation, should it use the maze that was atleast as hard as the one in the previous generation, or must it be harder? True = at least as hard. 
+      - max_iter: number of iterations per generation
+      - max_gen: number of generations
+      - path_display: Plot evolution of metric for each total_iteration = iteration*generation?
+      - maze_display: Show maze as it's evolving?
       '''
       #Starting maze
       #------------------
       #Intiate params for adversial path search
-      path_length = 0
+      node_length = 0
       max_length = 0 #longest path
+      max_length_print = 0
       iter_data = []
 
-      while path_length == 0:
+      while node_length == 0:
          #Maze structure
          if prev_maze is not None:
             original_maze = prev_maze
@@ -159,13 +168,25 @@ class Maze:
             original_maze = self.gen_maze(p1) #initial, solvable maze
          maze = original_maze.copy()
          
-         #Verify that maze is solvable and find path_length
+         #Verify that maze is solvable and find node_length
          data = self.solve_maze(maze, method = method)
-         path_length = data[0]
+         if data[0] == 0:
+            node_length = 0
+         elif metric == 'path':
+            node_length = data[0]
+         elif metric == 'nodepath':
+            node_length = data[1]*data[0]
+         elif metric == 'deadend':
+            node_length = data[2]
+         else:
+            #metric == 'node'
+            node_length = data[1]/data[0]
 
          #Record hardest maze found
-         if max_length <= path_length:
-            max_length = path_length
+         if max_length <= node_length:
+            if metric == 'nodepath':
+               max_length_print = node_length/data[1]
+            max_length = node_length
             hardest_maze = original_maze.copy()
       start_maze = self.gen_maze(1)
       
@@ -173,8 +194,7 @@ class Maze:
       #Modified maze
       #------------------
       if maze_display == True:
-         print("Mod maze")
-         print("Path: Gen: Iter: p2:")
+         print("Metric: Gen: Iter: p2:")
       gen = 0
       np.random.seed(2)
       if path_display == True:
@@ -184,8 +204,8 @@ class Maze:
          ax.set_xlim(0, max_iter * max_gen)
          ax.set_ylim(0, 500)
          ax.set_xlabel("Iteration")
-         ax.set_ylabel("Path Length")
-         ax.set_title("Path Length Evolution")
+         ax.set_ylabel("Metric")
+         ax.set_title("Metric Evolution")
       while gen < max_gen: #Number of generations
          iter = 0
          initial_maze = hardest_maze.copy()
@@ -200,18 +220,32 @@ class Maze:
                      if wall == 1: 
                         maze[current_cell] = False #Add Wall
 
-                        #Verify that maze is solvable and find path_length
+                        #Verify that maze is solvable and find node_length
                         data = self.solve_maze(maze, method = method)
-                        path_length = data[0]
-                        if path_length == 0:
+                        if data[0] == 0:
+                           node_length = 0
+                        elif metric == 'path':
+                           node_length = data[0]
+                        elif metric == 'nodepath':
+                           node_length = data[1]*data[0]
+                        elif metric == 'deadend':
+                           node_length = data[2]
+                        else:
+                           #metric == 'node'
+                           node_length = data[1]/data[0]
+                        if node_length == 0:
                            maze[current_cell] = True #Remove Wall
 
                      #Record hardest maze found
-                     if (max_length <= path_length) and reset == False:
-                        max_length = path_length
+                     if (max_length <= node_length) and reset == False:
+                        if metric == 'nodepath':
+                           max_length_print = node_length/data[1]
+                        max_length = node_length
                         hardest_maze = maze.copy()
-                     if (max_length < path_length) and reset == True:
-                        max_length = path_length
+                     if (max_length < node_length) and reset == True:
+                        if metric == 'nodepath':
+                           max_length_print = node_length/data[1]
+                        max_length = node_length
                         hardest_maze = maze.copy()
             
             #Plot path length vs tot iteration
@@ -230,7 +264,10 @@ class Maze:
                   self.solve_maze(maze, method = method, display = True, wait = 1, size = 20)
                else:
                   self.solve_maze(maze, method = method, display = True, wait = 1, size = 11)
-               print(max_length, gen, iter, p2, end='\r')
+               if metric == 'nodepath':
+                  print(max_length_print, gen, iter, p2, end='\r')
+               else:
+                  print(max_length, gen, iter, p2, end='\r')
 
             iter += 1
          gen += 1
