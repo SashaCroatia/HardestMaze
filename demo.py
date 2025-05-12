@@ -16,7 +16,7 @@ import problems as prb
 #To be set by User:
 #------------------------
 #Define dimensions of empty grid
-Maze = prb.Maze(7,7)
+Maze = prb.Maze(6,6)
 
 #Define metric ('nodepath', 'node', 'deadend')
 metric = 'nodepath'
@@ -27,20 +27,16 @@ method = 'ucs'
 
 
 if metric == 'nodepath':
-    if method == 'ucs':
-        p1 = 0.85
-        p2 = 0.05
-    else:
-        p1 = 1
-        p2 = 0.05
+    p1 = 0.86
+    p2 = 0.1
     max_iter = 400
 elif metric == 'node':
-    p1 = 1
-    p2 = 0.05
+    p1 = 0.86
+    p2 = 0.1
     max_iter = 200
 elif metric == 'deadend':
     p1 = 0.92
-    p2 = 0.05
+    p2 = 0.02
     max_iter = 200
 else:
     #metric == 'path'
@@ -52,7 +48,7 @@ else:
 maze = Maze.gen_maze_adversarial(None, metric, p1, p2, method, True, max_iter, 2, False)
 
 #Modify that maze
-maze = Maze.gen_maze_adversarial(maze, metric, 1, 0.05, method, True, max_iter, 15, False) #30
+maze = Maze.gen_maze_adversarial(maze, metric, 1, 0.05, method, True, max_iter, 6, False) #30
 
 #Solve that maze
 print(f"metric = {metric} | method = {method} | path len, nodes explored, dead ends = {Maze.solve_maze(maze, method, True, 0)}")
