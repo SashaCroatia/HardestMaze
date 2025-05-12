@@ -36,7 +36,7 @@ class Maze:
       #Generate Maze!
       #------------------
       path_length = 0
-      np.random.seed(10)
+      #np.random.seed(10)
       while path_length == 0:
          #Maze structure
          maze = np.zeros((self.height, self.width),bool)
@@ -194,9 +194,9 @@ class Maze:
       #Modified maze
       #------------------
       if maze_display == True:
-         print("Metric: Gen: Iter: p2:")
+         print("Objective: Gen: Iter:")
       gen = 0
-      np.random.seed(2)
+      #np.random.seed(2)
       if path_display == True:
          plt.ion()
          fig, ax = plt.subplots(figsize=(4.5, 4))
@@ -265,9 +265,9 @@ class Maze:
                else:
                   self.solve_maze(maze, method = method, display = True, wait = 1, size = 11)
                if metric == 'nodepath':
-                  print(max_length_print, gen, iter, p2, end='\r')
+                  print(max_length_print, gen, iter, end='\r')
                else:
-                  print(max_length, gen, iter, p2, end='\r')
+                  print(max_length, gen, iter, end='\r')
 
             iter += 1
          gen += 1
@@ -275,7 +275,8 @@ class Maze:
       if path_display == True:
          plt.ioff()
          plt.show()
-      print("\n")
+      if maze_display == True:
+         print("\n")
 
       return hardest_maze
 
