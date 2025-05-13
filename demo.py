@@ -12,43 +12,39 @@ algorithm and one player uses another. If your problem is snake, you might show 
 '''
 import problems as prb
 
-
 #To be set by User:
 #------------------------
 #Define dimensions of empty grid
-Maze = prb.Maze(6,6)
-
-#Define metric ('nodepath', 'node', 'deadend')
-metric = 'nodepath'
-
-#Define Method ('astar', 'dfs', 'ucs', 'greedy')
-method = 'ucs'
+Maze = prb.Maze(5,5) #small maze for computational speed reasons, as this is a demo
 #------------------------
 
+for metric in ['nodepath','node','deadend']:
+    for method in ['astar','dfs','greedy','ucs']:
+        if metric == 'nodepath':
+            p1 = 0.86
+            p2 = 0.1
+            max_iter = 400
+        elif metric == 'node':
+            p1 = 0.86
+            p2 = 0.1
+            max_iter = 200
+        elif metric == 'deadend':
+            p1 = 0.92
+            p2 = 0.02
+            max_iter = 200
+        else:
+            #metric == 'path'
+            p1 = 0.85
+            p2 = 0.15
+            max_iter = 200
 
-if metric == 'nodepath':
-    p1 = 0.86
-    p2 = 0.1
-    max_iter = 400
-elif metric == 'node':
-    p1 = 0.86
-    p2 = 0.1
-    max_iter = 200
-elif metric == 'deadend':
-    p1 = 0.92
-    p2 = 0.02
-    max_iter = 200
-else:
-    #metric == 'path'
-    p1 = 0.85
-    p2 = 0.15
-    max_iter = 200
+        print("-------------------------")
+        #Generate starting maze
+        maze = Maze.gen_maze_adversarial(None, metric, p1, p2, method, True, max_iter, 1, False, True)
 
-#Generate starting maze
-maze = Maze.gen_maze_adversarial(None, metric, p1, p2, method, True, max_iter, 2, False)
+        #Modify that maze
+        maze = Maze.gen_maze_adversarial(maze, metric, 1, 0.05, method, True, max_iter, 3, False, True)
 
-#Modify that maze
-maze = Maze.gen_maze_adversarial(maze, metric, 1, 0.05, method, True, max_iter, 6, False) #30
-
-#Solve that maze
-print(f"metric = {metric} | method = {method} | path len, nodes explored, dead ends = {Maze.solve_maze(maze, method, True, 0)}")
+        #Solve that maze
+        print(f"metric = {metric} | method = {method} | path len, nodes explored, dead ends = {Maze.solve_maze(maze, method, True, 1, 11, method)}")
+        print("-------------------------")

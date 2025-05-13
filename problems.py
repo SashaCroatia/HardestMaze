@@ -204,8 +204,7 @@ class Maze:
          ax.set_xlim(0, max_iter * max_gen)
          ax.set_ylim(0, 500)
          ax.set_xlabel("Iteration")
-         ax.set_ylabel("Metric")
-         ax.set_title("Metric Evolution")
+         ax.set_ylabel("Path Length")
       while gen < max_gen: #Number of generations
          iter = 0
          initial_maze = hardest_maze.copy()
@@ -249,12 +248,12 @@ class Maze:
                         hardest_maze = maze.copy()
             
             #Plot path length vs tot iteration
-            iter_data.append((gen*max_iter+iter, max_length))
+            iter_data.append((gen*max_iter+iter, max_length_print))
             if path_display == True:
                x_data, y_data = zip(*iter_data)
                line.set_data(x_data, y_data)
                ax.set_xlim(0, max(1, len(x_data)))
-               ax.set_ylim(0, max(200, max(y_data) + 10))
+               ax.set_ylim(0, max(50, max(y_data) + 20))
                plt.draw()
                plt.pause(0.01)
             
@@ -303,7 +302,7 @@ class Maze:
       cv2.waitKey(ms)
    
 
-   def solve_maze(self, maze, method = 'dfs', display = False, wait = 0, size = 11):
+   def solve_maze(self, maze, method = 'dfs', display = False, wait = 0, size = 11, og_method = 'None'):
       '''
       Solves the maze via specified search method.
       - maze (np 2D array): this is the generated maze
@@ -327,6 +326,7 @@ class Maze:
 
          #Display
          cv2.imshow(name, maze_display)
+
       else:
          maze_display = None
          name = None

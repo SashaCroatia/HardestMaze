@@ -10,12 +10,11 @@ import numpy as np
 #INSTRUCTORS: if you want to run all comparisons, change value to True (warning: may take a while)
 perform_all = False
 if perform_all == True:
-  creations = 10 #number of maze creations per method
+  creations = 30 #number of maze creations per method used in my experiments
 else:
-  creations = 1
+  creations = 1 #for testing purposes only
 
 methods = ['dfs', 'ucs', 'greedy', 'astar']
-np.random.seed(10)
 
 print("Experiment 1 - nodepath")
 print("=================")
@@ -26,6 +25,7 @@ max_iter = 400
 method_created = []
 for method in methods:
   created = []
+  np.random.seed(10)
   for creation in range(creations):
     #Define dimensions of empty grid
     Maze = prb.Maze(6,6)
@@ -60,6 +60,7 @@ max_iter = 200
 method_created = []
 for method in methods:
   created = []
+  np.random.seed(10)
   for creation in range(creations):
     #Define dimensions of empty grid
     Maze = prb.Maze(6,6)
@@ -94,6 +95,7 @@ max_iter = 200
 method_created = []
 for method in methods:
   created = []
+  np.random.seed(10)
   for creation in range(creations):
     #Define dimensions of empty grid
     Maze = prb.Maze(6,6)
