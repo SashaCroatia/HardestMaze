@@ -8,7 +8,7 @@ This repository serves as the template for your course project. Below is a guide
 The repository includes the following files:
 
 ### 1. `algorithms.py`  
-This file contains the implementations of the following AI search algorithms: depth-first search, breadth-first search.
+This file contains the implementations of the following AI search algorithms: depth-first search, breadth-first search (not used in project), uniform-cost search, greedy best search, and A* search.
 - Ensure your code is well-documented with comments explaining each algorithm.
 
 ### 2. `comparisons.py`  
