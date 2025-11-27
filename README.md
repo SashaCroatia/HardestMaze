@@ -1,42 +1,28 @@
-## Project Template: AI Algorithm Comparison
-
-This repository serves as the template for your course project. Below is a guide to the structure of the project and the purpose of each file. As you progress, you should add details about your specific project (e.g., "This file contains the implementations of the X, Y, and Z algorithms..."). 
+## Project: AI Algorithm Comparison
 
 ---
+Program to generate adversarial mazes (longest path, greatest number of dead-ends, and largest search space) for various maze-solving algorithms (depth-first, uniform cost, greedy best, A* search).
 
 ## Repository Structure
 The repository includes the following files:
 
 ### 1. `algorithms.py`  
 This file contains the implementations of the following AI search algorithms: depth-first search, breadth-first search (not used in project), uniform-cost search, greedy best search, and A* search.
-- Ensure your code is well-documented with comments explaining each algorithm.
 
 ### 2. `comparisons.py`  
-This file will contain the code for performing comparisons between your selected algorithms.  
-- The file should be able to perform **all comparisons** described in your report when executed.  
-- **Recommended Feature:** Include a setting to run a subset of comparisons for testing purposes.  
+This file contains code performing comparisons between selected algorithms.  
 
 ### 3. `demo.py`  
-This file will provide a brief demonstration of your project.
-
-#### Submission Requirements:
-- **Progress Report:** Demonstrate *random agents* attempting to solve each problem.  
-- **Final Report:** Demonstrate *each algorithm* attempting to solve each problem.  
-
-#### Guidelines for Demonstrations:
-Keep the demonstrations concise but meaningful to highlight key behaviors. Some agent types (e.g., random agents) may struggle or fail to solve a problem. Some problems may take a long time to complete (e.g., a full game of chess). In such cases, you should cut off the demonstration after a representative sample of the agent's behavior and problem mechanics has be shown. 
+This file demonstrates my project in action.
 
 ### 4. `problems.py`  
 This file contains the implementation of generating and displaying a maze, along with a method that calls on an search algorithm to solve that maze.  
-- Ensure that the problems are clearly defined and modular, so the algorithms can be easily tested on each.  
-- For the **progress report**, this file should be fully implemented and require no major edits afterward.
 
 ---
 
-## Instructions for Students
+## Instructions for Users
 
-### Step 0: Prepare Python Evironment
-These instructions will setup the evaluation environment we will use to evaluate your project. Use this environment (without addition or modification) to make sure your code will run the same on our machines.
+### Step 1: Prepare Python Evironment
 - Download and install [Anaconda](https://www.anaconda.com/download)
 - Open Terminal (or Anaconda prompt in Windows)- 
 - `conda create --name evalenv python=3.9`- 
@@ -45,27 +31,8 @@ These instructions will setup the evaluation environment we will use to evaluate
 - Open project directory (`cd <your_directory>` in Windows)
 - `pip install -r requirements.txt`
 
-### Step 1: Clone the Repository
-Clone this repository to your local machine:  
-```
-git clone <your_repo>
-```
-Test your repository/evironment:  
+### Step 2: Run
 - Open Terminal (or Anaconda prompt in Windows)- 
 - `conda activate evalenv`
 -  Open project directory (`cd <your_directory>` in Windows)
 - `python demo.py`
-  
-### Step 2: Code Your Project
-- Define your problems in [`problems.py`](./problems.py).
-- Implement your algorithms in [`algorithms.py`](./algorithms.py).
-- Write the comparison logic in [`comparisons.py`](./comparisons.py).
-- Create the demonstrations in [`demo.py`](./demo.py).
-- Installed Dependencies or Libraries in [`requirements.txt`](./requirements.txt)
-
-For detailed instructions, refer to the [Project Instructions](./project_instructions.md).
-
-### Step 3: Commit Regularly
-- Ensure at least 10 commits are made BEFORE the progress report submission deadline.
-- Ensure at least 10 commits are made AFTER the progress report submission deadline.
-- Make detailed commit messages describing what was added or changed.
