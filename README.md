@@ -1,7 +1,7 @@
 ## Project: AI Algorithm Comparison
 
 ---
-This originally started as a course project for INFO 550 - Artificial Intelligence.
+Note: This originally started as a course project for INFO 550 - Artificial Intelligence.
 
 This program generates adversarial mazes (longest path, greatest number of dead-ends, and largest search space) for various maze-solving algorithms (depth-first, uniform cost, greedy best, A* search). Check [this](https://www.youtube.com/watch?v=IofOjhYj6EQ) YouTube link to see it in action.
 
